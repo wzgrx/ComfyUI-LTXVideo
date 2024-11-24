@@ -29,6 +29,7 @@ class LTXVLoader:
                     folder_paths.get_filename_list("checkpoints"),
                     {"tooltip": "The name of the checkpoint (model) to load."},
                 ),
+                "dtype": (["bfloat16", "float32"], {"default": "float32"}),
             }
         }
 
@@ -39,7 +40,8 @@ class LTXVLoader:
     TITLE = "LTXV Loader"
     OUTPUT_NODE = False
 
-    def load(self, ckpt_name):
+    def load(self, ckpt_name, dtype):
+        dtype_map = {"bfloat16": torch.bfloat16, "float32": torch.float32}
         load_device = comfy.model_management.get_torch_device()
         offload_device = comfy.model_management.unet_offload_device()
 
@@ -51,7 +53,7 @@ class LTXVLoader:
         num_latent_channels = vae.first_stage_model.config.latent_channels
 
         model = self._load_unet(
-            load_device, offload_device, weights, num_latent_channels
+            load_device, offload_device, weights, num_latent_channels, dtype=dtype_map[dtype]
         )
         return (model, vae)
 
@@ -92,7 +94,7 @@ class LTXVLoader:
         )
         return vae
 
-    def _load_unet(self, load_device, offload_device, weights, num_latent_channels):
+    def _load_unet(self, load_device, offload_device, weights, num_latent_channels, dtype):
         config = {
             "_class_name": "Transformer3DModel",
             "_diffusers_version": "0.25.1",
@@ -135,11 +137,11 @@ class LTXVLoader:
                 if key.startswith(unet_prefix)
             }
         )
-        transformer.to(torch.float32).to(load_device).eval()
+        transformer.to(dtype).to(load_device).eval()
 
         diffusion_model = LTXVTransformer3D(transformer, SymmetricPatchifier(1))
         model = LTXVModel(
-            LTXVModelConfig(num_latent_channels),
+            LTXVModelConfig(num_latent_channels, dtype=dtype),
             model_type=comfy.model_base.ModelType.FLOW,
             device=comfy.model_management.get_torch_device(),
         )

@@ -18,14 +18,14 @@ from ltx_video.models.autoencoders.vae_encode import get_vae_size_scale_factor
 
 
 class LTXVModelConfig:
-    def __init__(self, latent_channels):
+    def __init__(self, latent_channels, dtype):
         self.unet_config = {}
         self.unet_extra_config = {}
         self.latent_format = comfy.latent_formats.LatentFormat()
         self.latent_format.latent_channels = latent_channels
-        self.manual_cast_dtype = torch.float32
+        self.manual_cast_dtype = dtype
         self.sampling_settings = {"multiplier": 1.0}
-        self.memory_usage_factor = 1
+        self.memory_usage_factor = 2.7
         # denoiser is handled by extension
         self.unet_config["disable_unet_model_creation"] = True
 
@@ -107,7 +107,7 @@ class LTXVTransformer3D(nn.Module):
         # infer mask from context padding, assumes padding vectors are all zero.
         latent = latent.to(self.transformer.dtype)
         latent_patchified = self.patchifier.patchify(latent)
-        context_mask = (context != 0).any(dim=2).float()
+        context_mask = (context != 0).any(dim=2).to(self.transformer.dtype)
 
         l = latent_patchified
         if mixed_precision:
