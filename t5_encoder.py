@@ -78,12 +78,13 @@ class LTXVTextEncoderModel(torch.nn.Module):
         token_weight_pairs_t5 = token_weight_pairs["t5xxl"]
         text_input_ids = torch.tensor(
             [[t[0] for t in token_weight_pairs_t5]],
-            device=self.t5xxl.device,
+            device=self.device,
         )
         prompt_attention_mask = torch.tensor(
             [[w[1] for w in token_weight_pairs_t5]],
-            device=self.t5xxl.device,
+            device=self.device,
         )
+        self.to(self.device) # comfyui skips loading some weights to gpu
         out = self.t5xxl(text_input_ids, attention_mask=prompt_attention_mask)[0]
         out = out * prompt_attention_mask.unsqueeze(2)
         return out, None, {"attention_mask": prompt_attention_mask}

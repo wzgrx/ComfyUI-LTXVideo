@@ -206,7 +206,7 @@ class LTXVModelConfigurator:
         )
         model.model.diffusion_model.to(load_device)
         new_model = LTXVModel(
-            LTXVModelConfig(vae.first_stage_model.config.latent_channels),
+            LTXVModelConfig(vae.first_stage_model.config.latent_channels, model.model.model_config.manual_cast_dtype),
             model_type=comfy.model_base.ModelType.FLOW,
             device=comfy.model_management.get_torch_device(),
         )
