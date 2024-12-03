@@ -1,20 +1,18 @@
+import math
 from contextlib import nullcontext
-import torch
-import torch.nn as nn
+
+import comfy.latent_formats
 import comfy.model_base
 import comfy.model_management
+import comfy.model_patcher
+import comfy.model_sampling
+import comfy.sd
 import comfy.supported_models_base
 import comfy.utils
-import comfy.model_patcher
-import comfy.sd
-import comfy.latent_formats
-import comfy.model_sampling
-from comfy.ldm.modules.diffusionmodules.util import make_beta_schedule
-import math
-
-from ltx_video.models.transformers.transformer3d import Transformer3DModel
+import torch
+import torch.nn as nn
 from ltx_video.models.transformers.symmetric_patchifier import SymmetricPatchifier
-from ltx_video.models.autoencoders.vae_encode import get_vae_size_scale_factor
+from ltx_video.models.transformers.transformer3d import Transformer3DModel
 
 
 class LTXVModelConfig:
@@ -109,14 +107,15 @@ class LTXVTransformer3D(nn.Module):
         latent_patchified = self.patchifier.patchify(latent)
         context_mask = (context != 0).any(dim=2).to(self.transformer.dtype)
 
-        l = latent_patchified
         if mixed_precision:
             context_manager = torch.autocast("cuda", dtype=torch.bfloat16)
         else:
             context_manager = nullcontext()
         with context_manager:
             noise_pred = self.transformer(
-                l.to(self.transformer.dtype).to(self.transformer.device),
+                latent_patchified.to(self.transformer.dtype).to(
+                    self.transformer.device
+                ),
                 indices_grid.to(self.transformer.device),
                 encoder_hidden_states=context.to(self.transformer.device),
                 encoder_attention_mask=context_mask.to(self.transformer.device).to(
@@ -145,6 +144,8 @@ class LTXVTransformer3DWrapper(nn.Module):
         indices_grid,
     ):
         super().__init__()
+        self.generator = torch.Generator(transformer.transformer.device).manual_seed(42)
+
         self.indices_grid = indices_grid
         self.dtype = transformer.dtype
         self.wrapped_transformer = transformer
@@ -157,12 +158,23 @@ class LTXVTransformer3DWrapper(nn.Module):
     def forward(self, x, timesteps, context, img_hw=None, aspect_ratio=None, **kwargs):
         transformer_options = kwargs.get("transformer_options", {})
         mixed_precision = transformer_options.get("mixed_precision", False)
+        noise_scale = transformer_options.get("noise_scale", 0.15)
         mask = self.conditioning_mask_patchified.to(x.device)
         ndim_mask = mask.ndimension()
         expanded_timesteps = timesteps.view(timesteps.size(0), *([1] * (ndim_mask - 1)))
         timesteps_masked = expanded_timesteps * (1 - mask)
+
+        noise = torch.randn(size=x.shape, device=x.device, generator=self.generator)
+
+        timesteps_unsqeezed = timesteps
+        for _ in range(x.dim() - timesteps.dim()):
+            timesteps_unsqeezed = timesteps_unsqeezed.unsqueeze(-1)
+        latent = (
+            x + noise_scale * noise * (timesteps_unsqeezed**2)
+        ) * self.conditioning_mask + x * (1 - self.conditioning_mask)
+
         result = self.wrapped_transformer.forward(
-            x,
+            latent,
             timesteps_masked,
             context,
             self.indices_grid,
