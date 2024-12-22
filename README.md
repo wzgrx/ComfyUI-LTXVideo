@@ -1,6 +1,10 @@
 # ComfyUI-LTXVideo
 ComfyUI-LTXVideo is a collection of custom nodes for ComfyUI designed to integrate the LTXVideo diffusion model. These nodes enable workflows for text-to-video, image-to-video, and video-to-video generation. The main LTXVideo repository can be found [here](https://github.com/Lightricks/LTX-Video).
 
+## 22.12.2024
+
+Fixed a bug which caused the model to produce artifacts on short negative prompts when using a native CLIP Loader node.
+
 ## 19.12.2024 ⭐ Update ⭐
 1. Improved model - removes "strobing texture" artifacts and generates better motion. Download from [here](https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.1.safetensors).
 2. STG support

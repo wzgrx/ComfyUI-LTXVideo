@@ -74,7 +74,7 @@ class LTXVLoader:
         return (model, vae)
 
     def _load_vae(self, weights, config=None):
-        if config is None:
+        if not config:
             config = {
                 "_class_name": "CausalVideoAutoencoder",
                 "dims": 3,
@@ -121,7 +121,7 @@ class LTXVLoader:
         dtype,
         config=None,
     ):
-        if config is None:
+        if not config:
             config = {
                 "_class_name": "Transformer3DModel",
                 "_diffusers_version": "0.25.1",
