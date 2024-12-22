@@ -98,6 +98,13 @@ class LTXVModel(comfy.model_base.BaseModel):
         super().__init__(*args, **kwargs)
         self.model_sampling = LTXVSampling(torch.zeros([1]))
 
+    def extra_conds(self, **kwargs):
+        out = super().extra_conds(**kwargs)
+        attention_mask = kwargs.get("attention_mask", None)
+        if attention_mask is not None:
+            out["attention_mask"] = comfy.conds.CONDRegular(attention_mask)
+        return out
+
 
 class LTXVTransformer3D(nn.Module):
     def __init__(
@@ -145,6 +152,7 @@ class LTXVTransformer3D(nn.Module):
         latent,
         timesteps,
         context,
+        attention_mask,
         indices_grid,
         skip_layer_mask=None,
         skip_layer_strategy=None,
@@ -156,7 +164,6 @@ class LTXVTransformer3D(nn.Module):
         # infer mask from context padding, assumes padding vectors are all zero.
         latent = latent.to(self.transformer.dtype)
         latent_patchified = self.patchifier.patchify(latent)
-        context_mask = (context != 0).any(dim=2).to(self.transformer.dtype)
 
         if mixed_precision:
             context_manager = torch.autocast("cuda", dtype=torch.bfloat16)
@@ -169,9 +176,7 @@ class LTXVTransformer3D(nn.Module):
                 ),
                 indices_grid.to(self.transformer.device),
                 encoder_hidden_states=context.to(self.transformer.device),
-                encoder_attention_mask=context_mask.to(self.transformer.device).to(
-                    torch.int64
-                ),
+                encoder_attention_mask=attention_mask,
                 timestep=timesteps,
                 skip_layer_mask=skip_layer_mask,
                 skip_layer_strategy=skip_layer_strategy,
@@ -187,7 +192,16 @@ class LTXVTransformer3D(nn.Module):
         )
         return result
 
-    def forward(self, x, timesteps, context, img_hw=None, aspect_ratio=None, **kwargs):
+    def forward(
+        self,
+        x,
+        timesteps,
+        context,
+        attention_mask,
+        img_hw=None,
+        aspect_ratio=None,
+        **kwargs,
+    ):
         transformer_options = kwargs.get("transformer_options", {})
         ptb_index = transformer_options.get("ptb_index", None)
         mixed_precision = transformer_options.get("mixed_precision", False)
@@ -211,6 +225,7 @@ class LTXVTransformer3D(nn.Module):
             x,
             timesteps_masked,
             context,
+            attention_mask,
             indices_grid=self.indices_grid(x.shape, x.device),
             mixed_precision=mixed_precision,
             skip_layer_mask=skip_layer_mask,
