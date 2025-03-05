@@ -1,8 +1,12 @@
+import contextlib
+from dataclasses import dataclass
+from typing import List
+
+import comfy.ldm.modules.attention
 import comfy.samplers
 import comfy.utils
 import torch
 from comfy.model_patcher import ModelPatcher
-from ltx_video.utils.skip_layer_strategy import SkipLayerStrategy
 
 from .nodes_registry import comfy_node
 
@@ -37,7 +41,6 @@ class LTXVApplySTG:
                     "MODEL",
                     {"tooltip": "The model to apply the STG to."},
                 ),
-                "stg_mode": (["attention", "residual"],),
                 "block_indices": (
                     "STRING",
                     {
@@ -53,16 +56,10 @@ class LTXVApplySTG:
     RETURN_NAMES = ("model",)
     CATEGORY = "lightricks/LTXV"
 
-    def apply_stg(self, model: ModelPatcher, stg_mode: str, block_indices: str):
+    def apply_stg(self, model: ModelPatcher, block_indices: str):
         skip_block_list = [int(i.strip()) for i in block_indices.split(",")]
-        stg_mode = (
-            SkipLayerStrategy.Attention
-            if stg_mode == "attention"
-            else SkipLayerStrategy.Residual
-        )
         new_model = model.clone()
 
-        new_model.model_options["transformer_options"]["skip_layer_strategy"] = stg_mode
         if "skip_block_list" in new_model.model_options["transformer_options"]:
             skip_block_list.extend(
                 new_model.model_options["transformer_options"]["skip_block_list"]
@@ -74,16 +71,104 @@ class LTXVApplySTG:
         return (new_model,)
 
 
-class STGGuider(comfy.samplers.CFGGuider):
-    def set_conds(self, positive, negative):
-        self.inner_set_conds(
-            {"positive": positive, "negative": negative, "perturbed": positive}
+@dataclass
+class STGFlag:
+    do_skip: bool = False
+    skip_layers: List[int] = None
+
+
+# context manager that replaces the attention function in a transformer block
+class PatchAttention(contextlib.AbstractContextManager):
+    def __init__(self, attn_idx=0):
+        self.original_attention = comfy.ldm.modules.attention.optimized_attention
+        self.original_attention_masked = (
+            comfy.ldm.modules.attention.optimized_attention_masked
+        )
+        self.current_idx = -1
+        self.attn_idx = attn_idx
+
+    def __enter__(self):
+        comfy.ldm.modules.attention.optimized_attention = self.stg_attention
+        comfy.ldm.modules.attention.optimized_attention_masked = (
+            self.stg_attention_masked
         )
 
-    def set_cfg(self, cfg, stg_scale, rescale_scale: float = None):
+    def __exit__(self, exc_type, exc_value, traceback):
+        comfy.ldm.modules.attention.optimized_attention = self.original_attention
+        comfy.ldm.modules.attention.optimized_attention_masked = (
+            self.original_attention_masked
+        )
+
+    def stg_attention(self, q, k, v, heads, *args, **kwargs):
+        self.current_idx += 1
+        if self.current_idx == self.attn_idx:
+            return v
+        else:
+            return self.original_attention(q, k, v, heads, *args, **kwargs)
+
+    def stg_attention_masked(self, q, k, v, heads, *args, **kwargs):
+        self.current_idx += 1
+        if self.current_idx == self.attn_idx:
+            return v
+        else:
+            return self.original_attention_masked(q, k, v, heads, *args, **kwargs)
+
+
+class STGBlockWrapper:
+    """Wraps transformer blocks to be able to skip attention layers."""
+
+    def __init__(self, block, stg_flag: STGFlag, idx: int):
+        self.flag = stg_flag
+        self.idx = idx
+        self.block = block
+
+    def __call__(self, args, extra_args):
+        context_manager = contextlib.nullcontext()
+        if self.flag.do_skip and self.idx in self.flag.skip_layers:
+            context_manager = PatchAttention(0)
+
+        with context_manager:
+            hidden_state = extra_args["original_block"](args)
+        return hidden_state
+
+
+class STGGuider(comfy.samplers.CFGGuider):
+    def __init__(
+        self, model: ModelPatcher, cfg, stg_scale, rescale_scale: float = None
+    ):
+        model = model.clone()
+        super().__init__(model)
+
+        self.stg_flag = STGFlag(
+            do_skip=False,
+            skip_layers=model.model_options["transformer_options"]["skip_block_list"],
+        )
+
+        self.patch_model(model, self.stg_flag)
+
         self.cfg = cfg
         self.stg_scale = stg_scale
         self.rescale_scale = rescale_scale
+
+    @classmethod
+    def patch_model(cls, model: ModelPatcher, stg_flag: STGFlag):
+        transformer_blocks = cls.get_transformer_blocks(model)
+
+        for i, block in enumerate(transformer_blocks):
+            model.set_model_patch_replace(
+                STGBlockWrapper(block, stg_flag, i), "dit", "double_block", i
+            )
+
+    @staticmethod
+    def get_transformer_blocks(model: ModelPatcher):
+        diffusion_model = model.get_model_object("diffusion_model")
+        key = "diffusion_model.transformer_blocks"
+        if diffusion_model.__class__.__name__ == "LTXVTransformer3D":
+            key = "diffusion_model.transformer.transformer_blocks"
+        return model.get_model_object(key)
+
+    def set_conds(self, positive, negative):
+        self.inner_set_conds({"positive": positive, "negative": negative})
 
     def predict_noise(
         self,
@@ -95,32 +180,44 @@ class STGGuider(comfy.samplers.CFGGuider):
         # in CFGGuider.predict_noise, we call sampling_function(), which uses cfg_function() to compute pos & neg
         # but we'd rather do a single batch of sampling pos, neg, and perturbed, so we call calc_cond_batch([perturbed,pos,neg]) directly
 
-        perturbed_cond = self.conds.get("perturbed", None)
         positive_cond = self.conds.get("positive", None)
         negative_cond = self.conds.get("negative", None)
 
+        noise_pred_pos = comfy.samplers.calc_cond_batch(
+            self.inner_model,
+            [positive_cond],
+            x,
+            timestep,
+            model_options,
+        )[0]
+
         noise_pred_neg = 0
-        # no similar optimization for stg=0, use CFG guider instead.
+        noise_pred_perturbed = 0
+
         if self.cfg > 1:
-            model_options["transformer_options"]["ptb_index"] = 2
-            (noise_pred_perturbed, noise_pred_pos, noise_pred_neg) = (
-                comfy.samplers.calc_cond_batch(
-                    self.inner_model,
-                    [perturbed_cond, positive_cond, negative_cond],
-                    x,
-                    timestep,
-                    model_options,
-                )
-            )
-        else:
-            model_options["transformer_options"]["ptb_index"] = 1
-            (noise_pred_perturbed, noise_pred_pos) = comfy.samplers.calc_cond_batch(
+            noise_pred_neg = comfy.samplers.calc_cond_batch(
                 self.inner_model,
-                [perturbed_cond, positive_cond],
+                [negative_cond],
                 x,
                 timestep,
                 model_options,
-            )
+            )[0]
+
+        if self.stg_scale > 0:
+            try:
+                model_options["transformer_options"]["ptb_index"] = 0
+                self.stg_flag.do_skip = True
+                noise_pred_perturbed = comfy.samplers.calc_cond_batch(
+                    self.inner_model,
+                    [positive_cond],
+                    x,
+                    timestep,
+                    model_options,
+                )[0]
+            finally:
+                self.stg_flag.do_skip = False
+                del model_options["transformer_options"]["ptb_index"]
+
         stg_result = stg(
             noise_pred_pos,
             noise_pred_neg,
@@ -190,7 +287,6 @@ class STGGuiderNode:
     CATEGORY = "lightricks/LTXV"
 
     def get_guider(self, model, positive, negative, cfg, stg, rescale):
-        guider = STGGuider(model)
+        guider = STGGuider(model, cfg, stg, rescale)
         guider.set_conds(positive, negative)
-        guider.set_cfg(cfg, stg, rescale)
         return (guider,)
