@@ -9,11 +9,15 @@ requires-python = ">=3.10"
 readme = "README.md"
 license = { file = "LICENSE" }
 dependencies = [
-    "ltx-video@git+https://github.com/Lightricks/LTX-Video@ltx-video-0.9.1",
-    "av>=10.0.0"
+    "huggingface_hub>=0.25.2",
+    "transformers>=4.45.0"
 ]
 
 [project.optional-dependencies]
+internal = [
+    "ltx-video@git+https://github.com/Lightricks/LTX-Video@ltx-video-0.9.1",
+    "av>=10.0.0"
+]
 dev = [
     "pre-commit>=4.0.1",
     "pytest>=8.0.0",
