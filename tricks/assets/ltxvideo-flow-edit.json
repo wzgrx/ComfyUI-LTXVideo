@@ -1,42 +1,7 @@
 {
   "last_node_id": 352,
-  "last_link_id": 743,
+  "last_link_id": 744,
   "nodes": [
-    {
-      "id": 209,
-      "type": "GetNode",
-      "pos": [
-        2019.1016845703125,
-        760.4979858398438
-      ],
-      "size": [
-        210,
-        58
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            425
-          ],
-          "slot_index": 0
-        }
-      ],
-      "title": "Get_VAE",
-      "properties": {},
-      "widgets_values": [
-        "VAE"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
     {
       "id": 267,
       "type": "SetNode",
@@ -172,7 +137,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -355,7 +320,7 @@
         26
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -724,7 +689,7 @@
         98
       ],
       "flags": {},
-      "order": 3,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -937,7 +902,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1061,7 +1026,7 @@
         130
       ],
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1241,7 +1206,7 @@
         314
       ],
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1281,7 +1246,7 @@
         88
       ],
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -1304,7 +1269,7 @@
         98
       ],
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1352,7 +1317,7 @@
         314
       ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1392,7 +1357,7 @@
         88
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -1741,7 +1706,7 @@
         406.5318603515625
       ],
       "flags": {},
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -1765,8 +1730,7 @@
           "localized_name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            541,
-            650
+            541
           ],
           "slot_index": 0
         },
@@ -1832,7 +1796,7 @@
       "flags": {
         "collapsed": false
       },
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -1852,18 +1816,99 @@
       ]
     },
     {
+      "id": 209,
+      "type": "GetNode",
+      "pos": [
+        2019.1016845703125,
+        760.4979858398438
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            425
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Get_VAE",
+      "properties": {},
+      "widgets_values": [
+        "VAE"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        2256.945556640625,
+        819.02978515625
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "localized_name": "samples",
+          "type": "LATENT",
+          "link": 740
+        },
+        {
+          "name": "vae",
+          "localized_name": "vae",
+          "type": "VAE",
+          "link": 425
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "localized_name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            744
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
       "id": 79,
       "type": "VHS_VideoCombine",
       "pos": [
-        2031.50341796875,
-        937.8900146484375
+        2041.8179931640625,
+        944.505126953125
       ],
       "size": [
         750,
-        1221.2916259765625
+        810.6666870117188
       ],
       "flags": {},
-      "order": 42,
+      "order": 40,
       "mode": 0,
       "inputs": [
         {
@@ -1871,7 +1916,7 @@
           "localized_name": "images",
           "type": "IMAGE",
           "shape": 7,
-          "link": 645
+          "link": 744
         },
         {
           "name": "audio",
@@ -1920,7 +1965,7 @@
           "hidden": false,
           "paused": false,
           "params": {
-            "filename": "ltx_rf_edit_00001.mp4",
+            "filename": "ltx_rf_edit_00002.mp4",
             "subfolder": "",
             "type": "temp",
             "format": "video/h264-mp4",
@@ -1929,139 +1974,6 @@
           "muted": false
         }
       }
-    },
-    {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": [
-        2256.945556640625,
-        819.02978515625
-      ],
-      "size": [
-        210,
-        46
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "localized_name": "samples",
-          "type": "LATENT",
-          "link": 740
-        },
-        {
-          "name": "vae",
-          "localized_name": "vae",
-          "type": "VAE",
-          "link": 425
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "localized_name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            648
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 334,
-      "type": "MoveImageToDevice",
-      "pos": [
-        2489.485107421875,
-        773.0357055664062
-      ],
-      "size": [
-        315,
-        58
-      ],
-      "flags": {},
-      "order": 40,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "localized_name": "image",
-          "type": "*",
-          "link": 648
-        }
-      ],
-      "outputs": [
-        {
-          "name": "*",
-          "localized_name": "*",
-          "type": "*",
-          "links": [
-            647
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MoveImageToDevice"
-      },
-      "widgets_values": [
-        "cpu"
-      ]
-    },
-    {
-      "id": 333,
-      "type": "ImageConcanate",
-      "pos": [
-        -146.83908081054688,
-        636.6289672851562
-      ],
-      "size": [
-        315,
-        102
-      ],
-      "flags": {},
-      "order": 41,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image1",
-          "localized_name": "image1",
-          "type": "IMAGE",
-          "link": 647
-        },
-        {
-          "name": "image2",
-          "localized_name": "image2",
-          "type": "IMAGE",
-          "link": 650
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "localized_name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            645
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ImageConcanate"
-      },
-      "widgets_values": [
-        "down",
-        true
-      ]
     }
   ],
   "links": [
@@ -2306,38 +2218,6 @@
       "IMAGE"
     ],
     [
-      645,
-      333,
-      0,
-      79,
-      0,
-      "IMAGE"
-    ],
-    [
-      647,
-      334,
-      0,
-      333,
-      0,
-      "IMAGE"
-    ],
-    [
-      648,
-      8,
-      0,
-      334,
-      0,
-      "*"
-    ],
-    [
-      650,
-      282,
-      0,
-      333,
-      1,
-      "IMAGE"
-    ],
-    [
       666,
       328,
       0,
@@ -2504,6 +2384,14 @@
       351,
       3,
       "LATENT"
+    ],
+    [
+      744,
+      8,
+      0,
+      79,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -2584,21 +2472,20 @@
       "font_size": 24,
       "flags": {},
       "nodes": [
-        209,
         352,
-        79,
+        209,
         8,
-        334
+        79
       ]
     }
   ],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6470148705638276,
+      "scale": 0.6544837670562416,
       "offset": [
-        313.41680047222656,
-        -568.7648241793069
+        330.5733898652322,
+        -671.9515388667731
       ]
     },
     "node_versions": {
@@ -2713,7 +2600,7 @@
           "pingpong": false,
           "save_output": false,
           "images": [
-            "333",
+            "8",
             0
           ]
         },
@@ -2960,37 +2847,6 @@
         "class_type": "GetImageSizeAndCount",
         "_meta": {
           "title": "Get Image Size & Count"
-        }
-      },
-      "333": {
-        "inputs": {
-          "direction": "down",
-          "match_image_size": true,
-          "image1": [
-            "334",
-            0
-          ],
-          "image2": [
-            "282",
-            0
-          ]
-        },
-        "class_type": "ImageConcanate",
-        "_meta": {
-          "title": "Image Concatenate"
-        }
-      },
-      "334": {
-        "inputs": {
-          "device": "cpu",
-          "image": [
-            "8",
-            0
-          ]
-        },
-        "class_type": "MoveImageToDevice",
-        "_meta": {
-          "title": "🅛🅣🅧 Tensor To CPU/GPU"
         }
       },
       "337": {
