@@ -1055,7 +1055,7 @@
       "widgets_values": {
         "frame_rate": 25,
         "loop_count": 0,
-        "filename_prefix": "AnimateDiff",
+        "filename_prefix": "ltxv",
         "format": "video/h264-mp4",
         "pix_fmt": "yuv420p",
         "crf": 19,
@@ -1066,7 +1066,7 @@
           "hidden": false,
           "paused": false,
           "params": {
-            "filename": "AnimateDiff_00132.mp4",
+            "filename": "ltxv_00132.mp4",
             "subfolder": "",
             "type": "output",
             "format": "video/h264-mp4",
@@ -1829,7 +1829,7 @@
         "inputs": {
           "frame_rate": 25,
           "loop_count": 0,
-          "filename_prefix": "AnimateDiff",
+          "filename_prefix": "ltxv",
           "format": "video/h264-mp4",
           "pix_fmt": "yuv420p",
           "crf": 19,
