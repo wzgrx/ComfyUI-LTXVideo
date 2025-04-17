@@ -16,7 +16,8 @@ dependencies = [
 [project.optional-dependencies]
 internal = [
     "ltx-video@git+https://github.com/Lightricks/LTX-Video@ltx-video-0.9.1",
-    "av>=10.0.0"
+    "av>=10.0.0",
+    "q8-kernels>=0.0.2"
 ]
 dev = [
     "pre-commit>=4.0.1",

@@ -10,6 +10,7 @@ class AddLatentGuideNode(nodes_lt.LTXVAddGuide):
                 "latent": ("LATENT",),
                 "image_latent": ("LATENT",),
                 "index": ("INT", {"default": 0, "min": -1, "max": 9999, "step": 1}),
+                "strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0}),
             }
         }
 
@@ -19,7 +20,7 @@ class AddLatentGuideNode(nodes_lt.LTXVAddGuide):
     CATEGORY = "ltxtricks"
     FUNCTION = "generate"
 
-    def generate(self, model, latent, image_latent, index):
+    def generate(self, model, latent, image_latent, index, strength):
         noise_mask = nodes_lt.get_noise_mask(latent)
         latent = latent["samples"]
 
@@ -30,7 +31,7 @@ class AddLatentGuideNode(nodes_lt.LTXVAddGuide):
             noise_mask,
             image_latent,
             index,
-            1.0,
+            strength,
         )
 
         return (

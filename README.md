@@ -4,7 +4,19 @@ ComfyUI-LTXVideo is a collection of custom nodes for ComfyUI, designed to provid
 The model itself is supported in the core ComfyUI [code](https://github.com/comfyanonymous/ComfyUI/tree/master/comfy/ldm/lightricks).
 The main LTXVideo repository can be found [here](https://github.com/Lightricks/LTX-Video).
 
-# 5.03.2025 :star: LTXVideo 0.9.5 Release :star:
+# 17.04.2025 ⭐ LTXVideo 0.9.6 Release ⭐
+
+### LTXVideo 0.9.6 introduces:
+
+1. LTXV 0.9.6 – higher quality, faster, great for final output. Download from [here](https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-2b-0.9.6-dev-04-25.safetensors).
+2. LTXV 0.9.6 Distilled – our fastest model yet (only 8 steps for generation), lighter, great for rapid iteration. Download from [here](https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-2b-0.9.6-distilled-04-25.safetensors).
+
+### Technical Updates
+
+We introduce the __STGGuiderAdvanced__ node, which applies different CFG and STG parameters at various diffusion steps. All flows have been updated to use this node and are designed to provide optimal parameters for the best quality.
+See the [Example Workflows](#example-workflows) section.
+
+# 5.03.2025 ⭐ LTXVideo 0.9.5 Release ⭐
 
 ### LTXVideo 0.9.5 introduces:
 
@@ -72,6 +84,10 @@ Note that to run the example workflows, you need to have some additional custom 
 
 [Download workflow](assets/ltxvideo-i2v.json)
 ![workflow](assets/ltxvideo-i2v.png)
+
+### Image-to-video-distilled
+[Download workflow](assets/ltxvideo-i2v-distilled.json)
+![workflow](assets/ltxvideo-i2v-distilled.png)
 
 ### Text-to-video
 

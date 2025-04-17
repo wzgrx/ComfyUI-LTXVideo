@@ -1,6 +1,6 @@
 {
-  "last_node_id": 90,
-  "last_link_id": 215,
+  "last_node_id": 92,
+  "last_link_id": 224,
   "nodes": [
     {
       "id": 81,
@@ -14,31 +14,36 @@
         106
       ],
       "flags": {},
-      "order": 17,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
           "name": "noise",
+          "localized_name": "noise",
           "type": "NOISE",
           "link": 194
         },
         {
           "name": "guider",
+          "localized_name": "guider",
           "type": "GUIDER",
-          "link": 200
+          "link": 224
         },
         {
           "name": "sampler",
+          "localized_name": "sampler",
           "type": "SAMPLER",
           "link": 196
         },
         {
           "name": "sigmas",
+          "localized_name": "sigmas",
           "type": "SIGMAS",
           "link": 197
         },
         {
           "name": "latent_image",
+          "localized_name": "latent_image",
           "type": "LATENT",
           "link": 198
         }
@@ -46,6 +51,7 @@
       "outputs": [
         {
           "name": "output",
+          "localized_name": "output",
           "type": "LATENT",
           "links": [
             199
@@ -54,12 +60,15 @@
         },
         {
           "name": "denoised_output",
+          "localized_name": "denoised_output",
           "type": "LATENT",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "SamplerCustomAdvanced"
+        "Node name for S&R": "SamplerCustomAdvanced",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": []
     },
@@ -72,29 +81,33 @@
       ],
       "size": [
         315,
-        190
+        214
       ],
       "flags": {},
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
           "name": "positive",
+          "localized_name": "positive",
           "type": "CONDITIONING",
           "link": 187
         },
         {
           "name": "negative",
+          "localized_name": "negative",
           "type": "CONDITIONING",
           "link": 188
         },
         {
           "name": "vae",
+          "localized_name": "vae",
           "type": "VAE",
           "link": 213
         },
         {
           "name": "image",
+          "localized_name": "image",
           "type": "IMAGE",
           "link": 204
         }
@@ -102,6 +115,7 @@
       "outputs": [
         {
           "name": "positive",
+          "localized_name": "positive",
           "type": "CONDITIONING",
           "links": [
             183
@@ -110,6 +124,7 @@
         },
         {
           "name": "negative",
+          "localized_name": "negative",
           "type": "CONDITIONING",
           "links": [
             184
@@ -118,6 +133,7 @@
         },
         {
           "name": "latent",
+          "localized_name": "latent",
           "type": "LATENT",
           "links": [
             185,
@@ -127,12 +143,15 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "LTXVImgToVideo"
+        "Node name for S&R": "LTXVImgToVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         768,
         512,
         97,
+        1,
         1
       ]
     },
@@ -148,11 +167,12 @@
         154
       ],
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
           "name": "latent",
+          "localized_name": "latent",
           "type": "LATENT",
           "shape": 7,
           "link": 185
@@ -161,6 +181,7 @@
       "outputs": [
         {
           "name": "SIGMAS",
+          "localized_name": "SIGMAS",
           "type": "SIGMAS",
           "links": [
             197
@@ -169,7 +190,9 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "LTXVScheduler"
+        "Node name for S&R": "LTXVScheduler",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         20,
@@ -177,44 +200,6 @@
         0.95,
         true,
         0.1
-      ]
-    },
-    {
-      "id": 79,
-      "type": "LTXVApplySTG",
-      "pos": [
-        463.5073547363281,
-        87.92158508300781
-      ],
-      "size": [
-        315,
-        58
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 191
-        }
-      ],
-      "outputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "links": [
-            195
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LTXVApplySTG"
-      },
-      "widgets_values": [
-        "14"
       ]
     },
     {
@@ -229,16 +214,18 @@
         46
       ],
       "flags": {},
-      "order": 18,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
+          "localized_name": "samples",
           "type": "LATENT",
           "link": 199
         },
         {
           "name": "vae",
+          "localized_name": "vae",
           "type": "VAE",
           "link": 212
         }
@@ -246,6 +233,7 @@
       "outputs": [
         {
           "name": "IMAGE",
+          "localized_name": "IMAGE",
           "type": "IMAGE",
           "links": [
             211
@@ -254,143 +242,11 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "VAEDecode"
+        "Node name for S&R": "VAEDecode",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": []
-    },
-    {
-      "id": 83,
-      "type": "RandomNoise",
-      "pos": [
-        464.678955078125,
-        -74.81466674804688
-      ],
-      "size": [
-        315,
-        82
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "NOISE",
-          "type": "NOISE",
-          "links": [
-            194
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "RandomNoise"
-      },
-      "widgets_values": [
-        42,
-        "fixed"
-      ]
-    },
-    {
-      "id": 69,
-      "type": "LTXVConditioning",
-      "pos": [
-        885.63818359375,
-        226.95408630371094
-      ],
-      "size": [
-        223.8660125732422,
-        78
-      ],
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 183
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 184
-        }
-      ],
-      "outputs": [
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "links": [
-            201
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "links": [
-            202
-          ],
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LTXVConditioning"
-      },
-      "widgets_values": [
-        25
-      ]
-    },
-    {
-      "id": 82,
-      "type": "STGGuider",
-      "pos": [
-        830.7182006835938,
-        5.0998334884643555
-      ],
-      "size": [
-        315,
-        146
-      ],
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 195
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 201
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 202
-        }
-      ],
-      "outputs": [
-        {
-          "name": "GUIDER",
-          "type": "GUIDER",
-          "links": [
-            200
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "STGGuider"
-      },
-      "widgets_values": [
-        3,
-        1,
-        0.75
-      ]
     },
     {
       "id": 73,
@@ -404,12 +260,13 @@
         58
       ],
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "SAMPLER",
+          "localized_name": "SAMPLER",
           "type": "SAMPLER",
           "links": [
             196
@@ -418,7 +275,9 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "KSamplerSelect"
+        "Node name for S&R": "KSamplerSelect",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         "gradient_estimation"
@@ -436,29 +295,33 @@
         520.6666870117188
       ],
       "flags": {},
-      "order": 19,
+      "order": 18,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
+          "localized_name": "images",
           "type": "IMAGE",
           "shape": 7,
           "link": 211
         },
         {
           "name": "audio",
+          "localized_name": "audio",
           "type": "AUDIO",
           "shape": 7,
           "link": null
         },
         {
           "name": "meta_batch",
+          "localized_name": "meta_batch",
           "type": "VHS_BatchManager",
           "shape": 7,
           "link": null
         },
         {
           "name": "vae",
+          "localized_name": "vae",
           "type": "VAE",
           "shape": 7,
           "link": null
@@ -467,6 +330,7 @@
       "outputs": [
         {
           "name": "Filenames",
+          "localized_name": "Filenames",
           "type": "VHS_FILENAMES",
           "links": null
         }
@@ -488,7 +352,7 @@
           "hidden": false,
           "paused": false,
           "params": {
-            "filename": "ltxv_00098.mp4",
+            "filename": "ltxv_00129.mp4",
             "subfolder": "",
             "type": "output",
             "format": "video/h264-mp4",
@@ -496,52 +360,6 @@
           }
         }
       }
-    },
-    {
-      "id": 44,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        82.3931884765625,
-        -72.30274200439453
-      ],
-      "size": [
-        315,
-        98
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            191
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": null
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            212,
-            213
-          ],
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "ltx-video-2b-v0.9.5.safetensors"
-      ]
     },
     {
       "id": 38,
@@ -552,15 +370,16 @@
       ],
       "size": [
         315,
-        82
+        106
       ],
       "flags": {},
-      "order": 3,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "CLIP",
+          "localized_name": "CLIP",
           "type": "CLIP",
           "links": [
             74,
@@ -570,7 +389,9 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "CLIPLoader"
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         "t5xxl_fp16.safetensors",
@@ -590,12 +411,13 @@
         82
       ],
       "flags": {},
-      "order": 4,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "prompt_enhancer",
+          "localized_name": "prompt_enhancer",
           "type": "LTXV_PROMPT_ENHANCER",
           "links": [
             207
@@ -623,7 +445,7 @@
         192.86129760742188
       ],
       "flags": {},
-      "order": 5,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -648,17 +470,22 @@
       "flags": {
         "collapsed": false
       },
-      "order": 11,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
+          "localized_name": "clip",
           "type": "CLIP",
           "link": 74
         },
         {
           "name": "text",
           "type": "STRING",
+          "pos": [
+            10,
+            36
+          ],
           "widget": {
             "name": "text"
           },
@@ -668,6 +495,7 @@
       "outputs": [
         {
           "name": "CONDITIONING",
+          "localized_name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
             187
@@ -677,7 +505,9 @@
       ],
       "title": "CLIP Text Encode (Positive Prompt)",
       "properties": {
-        "Node name for S&R": "CLIPTextEncode"
+        "Node name for S&R": "CLIPTextEncode",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         "best quality, 4k, HDR, a tracking shot of a beautiful scene of the sea waves on the beach with a massive explosion in the water"
@@ -694,19 +524,21 @@
       ],
       "size": [
         315,
-        266
+        286
       ],
       "flags": {},
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
+          "localized_name": "image",
           "type": "IMAGE",
           "link": 214
         },
         {
           "name": "get_image_size",
+          "localized_name": "get_image_size",
           "type": "IMAGE",
           "shape": 7,
           "link": null
@@ -715,6 +547,10 @@
           "name": "width_input",
           "type": "INT",
           "shape": 7,
+          "pos": [
+            10,
+            196
+          ],
           "widget": {
             "name": "width_input"
           },
@@ -724,6 +560,10 @@
           "name": "height_input",
           "type": "INT",
           "shape": 7,
+          "pos": [
+            10,
+            220
+          ],
           "widget": {
             "name": "height_input"
           },
@@ -733,6 +573,7 @@
       "outputs": [
         {
           "name": "IMAGE",
+          "localized_name": "IMAGE",
           "type": "IMAGE",
           "links": [
             215
@@ -741,11 +582,13 @@
         },
         {
           "name": "width",
+          "localized_name": "width",
           "type": "INT",
           "links": null
         },
         {
           "name": "height",
+          "localized_name": "height",
           "type": "INT",
           "links": null
         }
@@ -776,11 +619,12 @@
         58
       ],
       "flags": {},
-      "order": 12,
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
           "name": "image",
+          "localized_name": "image",
           "type": "IMAGE",
           "link": 215
         }
@@ -788,6 +632,7 @@
       "outputs": [
         {
           "name": "output_image",
+          "localized_name": "output_image",
           "type": "IMAGE",
           "links": [
             204
@@ -796,7 +641,9 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "LTXVPreprocess"
+        "Node name for S&R": "LTXVPreprocess",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         40
@@ -814,11 +661,12 @@
         137.85621643066406
       ],
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
+          "localized_name": "clip",
           "type": "CLIP",
           "link": 75
         }
@@ -826,6 +674,7 @@
       "outputs": [
         {
           "name": "CONDITIONING",
+          "localized_name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
             188
@@ -835,7 +684,9 @@
       ],
       "title": "CLIP Text Encode (Negative Prompt)",
       "properties": {
-        "Node name for S&R": "CLIPTextEncode"
+        "Node name for S&R": "CLIPTextEncode",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         "low quality, worst quality, deformed, distorted, disfigured, motion smear, motion artifacts, fused fingers, bad anatomy, weird hand, ugly"
@@ -855,12 +706,13 @@
         333.3305358886719
       ],
       "flags": {},
-      "order": 6,
+      "order": 4,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
           "name": "IMAGE",
+          "localized_name": "IMAGE",
           "type": "IMAGE",
           "links": [
             205,
@@ -870,12 +722,15 @@
         },
         {
           "name": "MASK",
+          "localized_name": "MASK",
           "type": "MASK",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "LoadImage"
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
       },
       "widgets_values": [
         "shrek2.jpg",
@@ -894,16 +749,18 @@
         102
       ],
       "flags": {},
-      "order": 9,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "prompt_enhancer",
+          "localized_name": "prompt_enhancer",
           "type": "LTXV_PROMPT_ENHANCER",
           "link": 207
         },
         {
           "name": "image_prompt",
+          "localized_name": "image_prompt",
           "type": "IMAGE",
           "shape": 7,
           "link": 205
@@ -912,6 +769,7 @@
       "outputs": [
         {
           "name": "str",
+          "localized_name": "str",
           "type": "STRING",
           "links": [
             206
@@ -925,6 +783,208 @@
       "widgets_values": [
         "a person looking like Shrek talking",
         256
+      ]
+    },
+    {
+      "id": 83,
+      "type": "RandomNoise",
+      "pos": [
+        453.44482421875,
+        47.46747970581055
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "localized_name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            194
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
+      },
+      "widgets_values": [
+        42,
+        "fixed"
+      ]
+    },
+    {
+      "id": 69,
+      "type": "LTXVConditioning",
+      "pos": [
+        885.63818359375,
+        226.95408630371094
+      ],
+      "size": [
+        223.8660125732422,
+        78
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "localized_name": "positive",
+          "type": "CONDITIONING",
+          "link": 183
+        },
+        {
+          "name": "negative",
+          "localized_name": "negative",
+          "type": "CONDITIONING",
+          "link": 184
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "localized_name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            221
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "localized_name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            222
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LTXVConditioning",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
+      },
+      "widgets_values": [
+        25
+      ]
+    },
+    {
+      "id": 44,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        82.3931884765625,
+        -72.30274200439453
+      ],
+      "size": [
+        315,
+        98
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "localized_name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            223
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "localized_name": "CLIP",
+          "type": "CLIP",
+          "links": null
+        },
+        {
+          "name": "VAE",
+          "localized_name": "VAE",
+          "type": "VAE",
+          "links": [
+            212,
+            213
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.28"
+      },
+      "widgets_values": [
+        "ltxv-2b-0.9.6-dev-04-25.safetensors"
+      ]
+    },
+    {
+      "id": 92,
+      "type": "STGGuiderAdvanced",
+      "pos": [
+        825.4796142578125,
+        -92.4762191772461
+      ],
+      "size": [
+        327.5999755859375,
+        242
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "localized_name": "model",
+          "type": "MODEL",
+          "link": 223
+        },
+        {
+          "name": "positive",
+          "localized_name": "positive",
+          "type": "CONDITIONING",
+          "link": 221
+        },
+        {
+          "name": "negative",
+          "localized_name": "negative",
+          "type": "CONDITIONING",
+          "link": 222
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "localized_name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            224
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "STGGuiderAdvanced"
+      },
+      "widgets_values": [
+        0.996,
+        true,
+        "1.0, 0.9933, 0.9850, 0.9767, 0.9008, 0.6180",
+        "4, 4, 4, 4, 1, 1",
+        "2, 2, 2, 2, 1, 0",
+        "1, 1, 1, 1, 1, 1",
+        "[14], [14], [14], [14], [14], [14]"
       ]
     }
   ],
@@ -986,28 +1046,12 @@
       "CONDITIONING"
     ],
     [
-      191,
-      44,
-      0,
-      79,
-      0,
-      "MODEL"
-    ],
-    [
       194,
       83,
       0,
       81,
       0,
       "NOISE"
-    ],
-    [
-      195,
-      79,
-      0,
-      82,
-      0,
-      "MODEL"
     ],
     [
       196,
@@ -1040,30 +1084,6 @@
       8,
       0,
       "LATENT"
-    ],
-    [
-      200,
-      82,
-      0,
-      81,
-      1,
-      "GUIDER"
-    ],
-    [
-      201,
-      69,
-      0,
-      82,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      202,
-      69,
-      1,
-      82,
-      2,
-      "CONDITIONING"
     ],
     [
       204,
@@ -1136,20 +1156,52 @@
       84,
       0,
       "IMAGE"
+    ],
+    [
+      221,
+      69,
+      0,
+      92,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      222,
+      69,
+      1,
+      92,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      223,
+      44,
+      0,
+      92,
+      0,
+      "MODEL"
+    ],
+    [
+      224,
+      92,
+      0,
+      81,
+      1,
+      "GUIDER"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.6538676505623292,
+      "scale": 0.6303940863128502,
       "offset": [
-        400.85067622291626,
-        9.013459685364836
+        471.01810112868446,
+        215.44620489151183
       ]
     },
     "node_versions": {
-      "comfy-core": "0.3.18"
+      "comfy-core": "0.3.27"
     },
     "prompt": {
       "6": {
@@ -1210,7 +1262,7 @@
       },
       "44": {
         "inputs": {
-          "ckpt_name": "ltx-video-2b-v0.9.5.safetensors"
+          "ckpt_name": "ltxv-2b-0.9.6-dev-04-25.safetensors"
         },
         "class_type": "CheckpointLoaderSimple",
         "_meta": {
@@ -1266,6 +1318,7 @@
           "height": 512,
           "length": 97,
           "batch_size": 1,
+          "strength": 1,
           "positive": [
             "6",
             0
@@ -1298,19 +1351,6 @@
           "title": "Load Image"
         }
       },
-      "79": {
-        "inputs": {
-          "block_indices": "14",
-          "model": [
-            "44",
-            0
-          ]
-        },
-        "class_type": "LTXVApplySTG",
-        "_meta": {
-          "title": "🅛🅣🅧 LTXV Apply STG"
-        }
-      },
       "81": {
         "inputs": {
           "noise": [
@@ -1318,7 +1358,7 @@
             0
           ],
           "guider": [
-            "82",
+            "92",
             0
           ],
           "sampler": [
@@ -1337,29 +1377,6 @@
         "class_type": "SamplerCustomAdvanced",
         "_meta": {
           "title": "SamplerCustomAdvanced"
-        }
-      },
-      "82": {
-        "inputs": {
-          "cfg": 3,
-          "stg": 1,
-          "rescale": 0.75,
-          "model": [
-            "79",
-            0
-          ],
-          "positive": [
-            "69",
-            0
-          ],
-          "negative": [
-            "69",
-            1
-          ]
-        },
-        "class_type": "STGGuider",
-        "_meta": {
-          "title": "🅛🅣🅧 STG Guider"
         }
       },
       "83": {
@@ -1450,9 +1467,36 @@
         "_meta": {
           "title": "Resize Image"
         }
+      },
+      "92": {
+        "inputs": {
+          "skip_steps_sigma_threshold": 0.996,
+          "cfg_star_rescale": true,
+          "sigmas": "1.0, 0.9933, 0.9850, 0.9767, 0.9008, 0.6180",
+          "cfg_values": "4, 4, 4, 4, 1, 1",
+          "stg_scale_values": "2, 2, 2, 2, 1, 0",
+          "stg_rescale_values": "1, 1, 1, 1, 1, 1",
+          "stg_layers_indices": "[14], [14], [14], [14], [14], [14]",
+          "model": [
+            "44",
+            0
+          ],
+          "positive": [
+            "69",
+            0
+          ],
+          "negative": [
+            "69",
+            1
+          ]
+        },
+        "class_type": "STGGuiderAdvanced",
+        "_meta": {
+          "title": "🅛🅣🅧 STG Guider Advanced"
+        }
       }
     },
-    "comfy_fork_version": "update_nodes@db0f122d"
+    "comfy_fork_version": "feature/memory_prof@f7e64946"
   },
   "version": 0.4
 }
