@@ -1,9 +1,14 @@
+from .latents import LTXVSelectLatents, LTXVSetVideoLatentNoiseMasks  # noqa: F401
 from .nodes_registry import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
 from .prompt_enhancer_nodes import (  # noqa: F401
     LTXVPromptEnhancer,
     LTXVPromptEnhancerLoader,
 )
-from .stg import LTXVApplySTG, STGGuiderNode  # noqa: F401
+from .recurrent_sampler import (  # noqa: F401
+    LinearOverlapLatentTransition,
+    LTXVRecurrentKSampler,
+)
+from .stg import LTXVApplySTG, STGGuiderAdvancedNode, STGGuiderNode  # noqa: F401
 from .tricks import NODE_CLASS_MAPPINGS as TRICKS_NODE_CLASS_MAPPINGS
 from .tricks import NODE_DISPLAY_NAME_MAPPINGS as TRICKS_NODE_DISPLAY_NAME_MAPPINGS
 

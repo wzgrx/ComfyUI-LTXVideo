@@ -1302,7 +1302,7 @@
         "Node name for S&R": "CheckpointLoaderSimple"
       },
       "widgets_values": [
-        "ltx-video-2b-v0.9.5.safetensors"
+        "ltxv-2b-0.9.6-dev-04-25.safetensors"
       ]
     },
     {
@@ -2547,7 +2547,7 @@
       },
       "44": {
         "inputs": {
-          "ckpt_name": "ltx-video-2b-v0.9.5.safetensors"
+          "ckpt_name": "ltxv-2b-0.9.6-dev-04-25.safetensors"
         },
         "class_type": "CheckpointLoaderSimple",
         "_meta": {
