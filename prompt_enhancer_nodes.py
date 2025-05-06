@@ -90,6 +90,7 @@ class LTXVPromptEnhancerLoader:
     CATEGORY = "lightricks/LTXV"
     TITLE = "LTXV Prompt Enhancer (Down)Loader"
     OUTPUT_NODE = False
+    DESCRIPTION = "Downloads and initializes LLM and image captioning models from Hugging Face to enhance text prompts for image generation."
 
     def model_path_download_if_needed(self, model_name):
         model_directory = os.path.join(folder_paths.models_dir, MODELS_PATH_KEY)
@@ -180,6 +181,10 @@ class LTXVPromptEnhancer:
     CATEGORY = "lightricks/LTXV"
     TITLE = "LTXV Prompt Enhancer"
     OUTPUT_NODE = False
+    DESCRIPTION = (
+        "Enhances text prompts for image generation using LLMs. "
+        "Optionally incorporates reference images to create more contextually relevant descriptions."
+    )
 
     def enhance(
         self,

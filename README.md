@@ -4,6 +4,38 @@ ComfyUI-LTXVideo is a collection of custom nodes for ComfyUI, designed to provid
 The model itself is supported in the core ComfyUI [code](https://github.com/comfyanonymous/ComfyUI/tree/master/comfy/ldm/lightricks).
 The main LTXVideo repository can be found [here](https://github.com/Lightricks/LTX-Video).
 
+# ⭐ 06.05.2025 – LTXVideo 13B 0.9.7 Release ⭐
+
+### 🚀 What's New in LTXVideo 13B 0.9.7
+
+1. **LTXV 13B 0.9.7**
+   Delivers cinematic-quality videos at unprecedented speed.<br>
+   👉 [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-13b-0.9.7-dev.safetensors)
+
+2. **LTXV 13B Quantized 0.9.7**
+   Offers reduced memory requirements and even faster inference speeds.
+   Ideal for consumer-grade GPUs (e.g., NVIDIA 4090, 5090).
+   Delivers outstanding quality with improved performance.<br>
+   ***Important:*** In order to run the quantized version please install [LTXVideo-Q8-Kernels](https://github.com/Lightricks/LTXVideo-Q8-Kernels) package and use dedicated flow below. Loading the model in Comfy with LoadCheckpoint node won't work. <br>
+   👉 [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-13b-0.9.7-dev-fp8.safetensors)<br>
+   🧩 Example ComfyUI flow available in the [Example Workflows](#example-workflows) section.
+
+3. **Latent Upscaling Models**
+   Enables inference across multiple scales by upscaling latent tensors without decoding/encoding.
+   Multiscale inference delivers high-quality results in a fraction of the time compared to similar models.<br>
+   ***Important:*** Make sure you put the models below in **models/upscale_models** folder.<br>
+   👉 Spatial upscaling: [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-spatial-upscaler-0.9.7.safetensors).<br>
+   👉 Temporal upscaling: [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-temporal-upscaler-0.9.7.safetensors).<br>
+   🧩 Example ComfyUI flow available in the [Example Workflows](#example-workflows) section.
+
+
+### Technical Updates
+
+1. ***New simplified flows and nodes***<br>
+1.1. Simplified image to video: [Download here](example_workflows/ltxv-13b-i2v-base.json).<br>
+1.2. Simplified image to video with extension: [Download here](example_workflows/ltxv-13b-i2v-extend.json).<br>
+1.3. Simplified image to video with keyframes: [Download here](example_workflows/ltxv-13b-i2v-keyframes.json).<br>
+
 # 17.04.2025 ⭐ LTXVideo 0.9.6 Release ⭐
 
 ### LTXVideo 0.9.6 introduces:
@@ -49,7 +81,7 @@ Fixed a bug which caused the model to produce artifacts on short negative prompt
 2. STG support
 3. Integrated image degradation system for improved motion generation.
 4. Additional initial latent optional input to chain latents for high res generation.
-5. Image captioning in image to video [flow](assets/ltxvideo-i2v.json).
+5. Image captioning in image to video [flow](example_workflows/ltxvideo-i2v.json).
 
 ## Installation
 
@@ -80,41 +112,21 @@ For portable ComfyUI installations, run
 
 Note that to run the example workflows, you need to have some additional custom nodes, like [ComfyUI-VideoHelperSuite](https://github.com/kosinkadink/ComfyUI-VideoHelperSuite) and others, installed. You can do it by pressing "Install Missing Custom Nodes" button in ComfyUI Manager.
 
-### Image-to-video
+### Easy to use multi scale generation workflows
 
-[Download workflow](assets/ltxvideo-i2v.json)
-![workflow](assets/ltxvideo-i2v.png)
+🧩 [Image to video](example_worfklows/ltxv-13b-i2v-base.json)<br>
+🧩 [Image to video with keyframes](example_worfklows/ltxv-13b-i2v-keyframes.json)<br>
+🧩 [Image to video with duration extension](example_worfklows/ltxv-13b-i2v-extend.json)<br>
+🧩 [Image to video 8b quantized](example_worfklows/ltxv-13b-i2v-base-fp8.json)
 
-### Image-to-video-distilled
-[Download workflow](assets/ltxvideo-i2v-distilled.json)
-![workflow](assets/ltxvideo-i2v-distilled.png)
+### Inversion
 
-### Text-to-video
+#### Flow Edit
 
-[Download workflow](assets/ltxvideo-t2v.json)
-![workflow](assets/ltxvideo-t2v.png)
+🧩 [Download workflow](example_workflows/tricks/ltxvideo-flow-edit.json)<br>
+![workflow](example_workflows/tricks/ltxvideo-flow-edit.png)
 
-### Frame Interpolation
+#### RF Edit
 
-[Download workflow](assets/ltxvideo-frame-interpolation.json)
-![workflow](assets/ltxvideo-frame-interpolation.png)
-
-### First Sequence Conditioning
-
-[Download workflow](assets/ltxvideo-first-sequence-conditioning.json)
-![workflow](assets/ltxvideo-first-sequence-conditioning.png)
-
-### Last Sequence Conditioning
-
-[Download workflow](assets/ltxvideo-last-sequence-conditioning.json)
-![workflow](assets/ltxvideo-last-sequence-conditioning.png)
-
-### Flow Edit
-
-[Download workflow](tricks/assets/ltxvideo-flow-edit.json)
-![workflow](tricks/assets/ltxvideo-flow-edit.png)
-
-### RF Edit
-
-[Download workflow](tricks/assets/ltxvideo-rf-edit.json)
-![workflow](tricks/assets/ltxvideo-rf-edit.png)
+🧩 [Download workflow](example_workflows/tricks/ltxvideo-rf-edit.json)<br>
+![workflow](example_workflows/tricks/ltxvideo-rf-edit.png)
