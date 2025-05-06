@@ -1,5 +1,7 @@
 import contextlib
+import json
 import math
+import os
 from dataclasses import dataclass
 from typing import List
 
@@ -55,6 +57,8 @@ class LTXVApplySTG:
     RETURN_TYPES = ("MODEL",)
     RETURN_NAMES = ("model",)
     CATEGORY = "lightricks/LTXV"
+
+    DESCRIPTION = "Defines the blocks to apply the STG to."
 
     def apply_stg(self, model: ModelPatcher, block_indices: str):
         skip_block_list = [int(i.strip()) for i in block_indices.split(",")]
@@ -298,9 +302,10 @@ class STGGuiderAdvanced(comfy.samplers.CFGGuider):
         # Find the closest higher sigma value and return corresponding cfg
         higher_sigmas = [s for s in self.sigma_list if s >= sigma]
         if not higher_sigmas:
-            return self.cfg_list[-1]  # Return last cfg if no higher sigma exists
-        closest_higher = min(higher_sigmas)
-        closest_idx = self.sigma_list.index(closest_higher)
+            closest_idx = -1  # Return last cfg if no higher sigma exists
+        else:
+            closest_higher = min(higher_sigmas)
+            closest_idx = self.sigma_list.index(closest_higher)
         return (
             self.cfg_list[closest_idx],
             self.stg_scale_list[closest_idx],
@@ -450,10 +455,33 @@ class STGGuiderNode:
     FUNCTION = "get_guider"
     CATEGORY = "lightricks/LTXV"
 
+    DESCRIPTION = (
+        "Implements Spatiotemporal Skip Guidance (STG), a training-free method enhancing transformer-based "
+        "video diffusion models by selectively skipping layers during sampling. This approach improves video "
+        "quality without sacrificing diversity or motion fidelity."
+        "Reference: https://arxiv.org/abs/2411.18664."
+    )
+
     def get_guider(self, model, positive, negative, cfg, stg, rescale):
         guider = STGGuider(model, cfg, stg, rescale)
         guider.set_conds(positive, negative)
         return (guider,)
+
+
+def load_stg_presets():
+    preset_file_path = os.path.join(
+        os.path.dirname(__file__), "presets", "stg_advanced_presets.json"
+    )
+    if os.path.exists(preset_file_path):
+        presets = json.load(open(preset_file_path))
+        preset_names = [preset["name"] for preset in presets]
+    else:
+        presets = []
+        preset_names = ["Custom"]
+    return presets, preset_names
+
+
+STG_ADVANCED_PRESETS, STG_ADVANCED_PRESET_NAMES = load_stg_presets()
 
 
 @comfy_node(name="STGGuiderAdvanced")
@@ -468,7 +496,7 @@ class STGGuiderAdvancedNode:
                 "skip_steps_sigma_threshold": (
                     "FLOAT",
                     {
-                        "default": 0.996,
+                        "default": 0.998,
                         "min": 0.0,
                         "max": 100.0,
                         "step": 0.001,
@@ -492,14 +520,14 @@ class STGGuiderAdvancedNode:
                 "cfg_values": (
                     "STRING",
                     {
-                        "default": "4, 4, 4, 4, 1, 1",
+                        "default": "8, 6, 6, 4, 3, 1",
                         "tooltip": "Comma-separated list of cfg values. Should be same length as sigmas list.",
                     },
                 ),
                 "stg_scale_values": (
                     "STRING",
                     {
-                        "default": "2, 2, 2, 2, 1, 0",
+                        "default": "4, 4, 3, 2, 1, 0",
                         "tooltip": "Comma-separated list of stg scale values. Should be same length as sigmas list.",
                     },
                 ),
@@ -513,17 +541,52 @@ class STGGuiderAdvancedNode:
                 "stg_layers_indices": (
                     "STRING",
                     {
-                        "default": "[14], [14], [14], [14], [14], [14]",
+                        "default": "[29], [29], [29], [29], [29], [29]",
                         "tooltip": "Comma-separated list of list of layer indices. Should be same length as sigmas list.",
                     },
                 ),
-            }
+            },
+            "optional": {
+                "preset": (
+                    "STG_ADVANCED_PRESET",
+                    {
+                        "tooltip": "Preset resolution and frame count. Custom allows manual input.",
+                    },
+                ),
+            },
         }
 
     RETURN_TYPES = ("GUIDER",)
 
     FUNCTION = "get_guider"
     CATEGORY = "lightricks/LTXV"
+    DESCRIPTION = """
+    The Advanced STG Guider implements sophisticated techniques for controlling the denoising process:
+
+    It creates a dynamic mapping from scheduler-defined sigma values to CFG and STG (Spatio-Temporal Skip Guidance [1]) parameters.
+    This approach establishes distinct sigma value ranges that operate independently of step numbers, allowing precise control over:
+    • CFG scale
+    • STG scale and rescale factors
+    • STG attention layer skipping patterns
+
+    The guider also supports:
+    • CFG-Zero* [2] rescaling, which dynamically adjusts negative predictions based on the dot product between positive and negative signals
+    • Threshold-based noise prediction zeroing for steps with sigma values exceeding a specified threshold
+
+    For example if the sigma ranges are defined as [1.0, 0.9, 0.85, 0.6] and the CFG values are defined as [4, 3, 2, 1] and STG scale values
+    are defined as [2, 2, 2, 1] and STG rescale values are defined as [1, 1, 1, 1] and STG layers indices are defined as [[14, 17], [14, 16], [14], [14]], then the guider will:
+    - use CFG=4, STG scale=2, STG rescale=1 and STG layers indices = [14, 17] for sigma in the range (0.9, 1.0]
+    - use CFG=3, STG scale=2, STG rescale=1 and STG layers indices = [14, 16] for sigma in the range (0.85, 0.9]
+    - use CFG=2, STG scale=2, STG rescale=1 and STG layers indices = [14] for sigma in the range (0.8, 0.85]
+    - use CFG=1, STG scale=1, STG rescale=1 and STG layers indices = [14] for sigma in the range (0.6, 0.8]
+
+    The guider will use the same parameters for the same sigma values, regardless of the step number.
+
+    References:
+    [1] https://arxiv.org/abs/2411.18664
+    [2] https://arxiv.org/abs/2503.18886
+
+    """
 
     @classmethod
     def parse_stg_layers_indices(cls, stg_layers_indices: str) -> List[List[int]]:
@@ -562,12 +625,37 @@ class STGGuiderAdvancedNode:
         stg_scale_values,
         stg_rescale_values,
         stg_layers_indices,
+        preset=None,
     ):
-        sigma_list = [float(s.strip()) for s in sigmas.split(",")]
-        cfg_list = [float(c.strip()) for c in cfg_values.split(",")]
-        stg_scale_list = [float(s.strip()) for s in stg_scale_values.split(",")]
-        stg_rescale_list = [float(s.strip()) for s in stg_rescale_values.split(",")]
-        stg_layers_indices_list = self.parse_stg_layers_indices(stg_layers_indices)
+        if preset and preset != "Custom":
+            preset_data = next(
+                (item for item in STG_ADVANCED_PRESETS if item["name"] == preset), None
+            )
+            if preset_data:
+                skip_steps_sigma_threshold = preset_data["skip_steps_sigma_threshold"]
+                cfg_star_rescale = preset_data["cfg_star_rescale"]
+                sigma_list = preset_data["sigmas"]
+                cfg_list = preset_data["cfg_values"]
+                stg_scale_list = preset_data["stg_scale_values"]
+                stg_rescale_list = preset_data["stg_rescale_values"]
+                stg_layers_indices_list = preset_data["stg_layers_indices"]
+            else:
+                raise ValueError(f"Preset {preset} not found in the presets list.")
+
+        else:
+            sigma_list = [float(s.strip()) for s in sigmas.split(",")]
+            cfg_list = [float(c.strip()) for c in cfg_values.split(",")]
+            stg_scale_list = [float(s.strip()) for s in stg_scale_values.split(",")]
+            stg_rescale_list = [float(s.strip()) for s in stg_rescale_values.split(",")]
+            stg_layers_indices_list = self.parse_stg_layers_indices(stg_layers_indices)
+        print("Using preset: ", preset)
+        print("Skip steps sigma threshold: ", skip_steps_sigma_threshold)
+        print("Cfg star rescale: ", cfg_star_rescale)
+        print("Sigma list: ", sigma_list)
+        print("Cfg list: ", cfg_list)
+        print("Stg scale list: ", stg_scale_list)
+        print("Stg rescale list: ", stg_rescale_list)
+        print("Stg layers indices list: ", stg_layers_indices_list)
 
         guider = STGGuiderAdvanced(
             model,
@@ -580,4 +668,30 @@ class STGGuiderAdvancedNode:
             cfg_star_rescale,
         )
         guider.set_conds(positive, negative)
+        guider.raw_conds = (positive, negative)
         return (guider,)
+
+
+@comfy_node(name="STGAdvancedPresets")
+class STGAdvancedPresetsNode:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "preset": (
+                    STG_ADVANCED_PRESET_NAMES,
+                    {
+                        "default": "13b Balanced",
+                        "tooltip": "Preset resolution and frame count. Custom allows manual input.",
+                    },
+                ),
+            },
+        }
+
+    RETURN_TYPES = ("STG_ADVANCED_PRESET",)
+
+    FUNCTION = "get_preset"
+    CATEGORY = "lightricks/LTXV"
+
+    def get_preset(self, preset=None):
+        return (preset,)

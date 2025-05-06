@@ -37,6 +37,10 @@ class LTXVSelectLatents:
     RETURN_TYPES = ("LATENT",)
     FUNCTION = "select_latents"
     CATEGORY = "latent/video"
+    DESCRIPTION = (
+        "Selects a range of frames from the video latent. "
+        "start_index and end_index define a closed interval (inclusive of both endpoints)."
+    )
 
     def select_latents(self, samples: dict, start_index: int, end_index: int) -> tuple:
         """
@@ -106,6 +110,10 @@ class LTXVAddLatents:
     RETURN_TYPES = ("LATENT",)
     FUNCTION = "add_latents"
     CATEGORY = "latent/video"
+    DESCRIPTION = (
+        "Concatenates two video latents along the frames dimension. "
+        "latents1 and latents2 must have the same dimensions except for the frames dimension."
+    )
 
     def add_latents(
         self, latents1: torch.Tensor, latents2: torch.Tensor
@@ -205,6 +213,11 @@ class LTXVSetVideoLatentNoiseMasks:
     RETURN_TYPES = ("LATENT",)
     FUNCTION = "set_mask"
     CATEGORY = "latent/video"
+    DESCRIPTION = (
+        "Applies multiple masks to a video latent. "
+        "masks can be 2D, 3D, or 4D tensors. "
+        "If there are fewer masks than frames, the last mask will be reused."
+    )
 
     def set_mask(self, samples: dict, masks: torch.Tensor) -> tuple:
         """
@@ -319,6 +332,8 @@ class LTXVAddLatentGuide(nodes_lt.LTXVAddGuide):
 
     CATEGORY = "ltxtricks"
     FUNCTION = "generate"
+
+    DESCRIPTION = "Adds a keyframe or a video segment at a specific frame index."
 
     def generate(
         self, vae, positive, negative, latent, guiding_latent, latent_idx, strength
