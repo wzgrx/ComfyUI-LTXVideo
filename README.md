@@ -114,10 +114,10 @@ Note that to run the example workflows, you need to have some additional custom 
 
 ### Easy to use multi scale generation workflows
 
-🧩 [Image to video](example_worfklows/ltxv-13b-i2v-base.json)<br>
-🧩 [Image to video with keyframes](example_worfklows/ltxv-13b-i2v-keyframes.json)<br>
-🧩 [Image to video with duration extension](example_worfklows/ltxv-13b-i2v-extend.json)<br>
-🧩 [Image to video 8b quantized](example_worfklows/ltxv-13b-i2v-base-fp8.json)
+🧩 [Image to video](example_workflows/ltxv-13b-i2v-base.json)<br>
+🧩 [Image to video with keyframes](example_workflows/ltxv-13b-i2v-keyframes.json)<br>
+🧩 [Image to video with duration extension](example_workflows/ltxv-13b-i2v-extend.json)<br>
+🧩 [Image to video 8b quantized](example_workflows/ltxv-13b-i2v-base-fp8.json)
 
 ### Inversion
 
