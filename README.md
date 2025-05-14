@@ -4,6 +4,23 @@ ComfyUI-LTXVideo is a collection of custom nodes for ComfyUI, designed to provid
 The model itself is supported in the core ComfyUI [code](https://github.com/comfyanonymous/ComfyUI/tree/master/comfy/ldm/lightricks).
 The main LTXVideo repository can be found [here](https://github.com/Lightricks/LTX-Video).
 
+# ⭐ 14.05.2025 – LTXVideo 13B 0.9.7 Distilled Release ⭐
+
+### 🚀 What's New in LTXVideo 13B 0.9.7 Distilled
+1. **LTXV 13B Distilled 🥳 0.9.7**<br>
+   Delivers cinematic-quality videos at fraction of steps needed to run full model. Only 4 or 8 steps needed for single generation.<br>
+   👉 [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-13b-0.9.7-distilled.safetensors)
+
+2. **LTXV 13B Distilled Quantized 0.9.7**<br>
+   Offers reduced memory requirements and even faster inference speeds.
+   Ideal for consumer-grade GPUs (e.g., NVIDIA 4090, 5090).<br>
+   ***Important:*** In order to get the best performance with the quantized version please install [q8_kernels](https://github.com/Lightricks/LTXVideo-Q8-Kernels) package and use dedicated flow below. <br>
+   👉 [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-13b-0.9.7-distilled-fp8.safetensors)<br>
+   🧩 Example ComfyUI flow available in the [Example Workflows](#example-workflows) section.
+
+3. **Updated LTV 13B Quantized version**<br>
+From now on all our 8bit quantized models are running natively in ComfyUI, still with our Q8 patcher node you will get the best inference speed.<br>
+👉 [Download here](https://huggingface.co/Lightricks/LTX-Video/blob/main/ltxv-13b-0.9.7-dev-fp8.safetensors)<br>
 # ⭐ 06.05.2025 – LTXVideo 13B 0.9.7 Release ⭐
 
 ### 🚀 What's New in LTXVideo 13B 0.9.7
@@ -114,10 +131,19 @@ Note that to run the example workflows, you need to have some additional custom 
 
 ### Easy to use multi scale generation workflows
 
+🧩 [Image to video mixed](example_workflows/ltxv13b-i2v-mixed-multiscale.json): mixed flow with full and distilled model for best quality and speed trade-off.<br>
+
+### 13B model<br>
 🧩 [Image to video](example_workflows/ltxv-13b-i2v-base.json)<br>
 🧩 [Image to video with keyframes](example_workflows/ltxv-13b-i2v-keyframes.json)<br>
 🧩 [Image to video with duration extension](example_workflows/ltxv-13b-i2v-extend.json)<br>
 🧩 [Image to video 8b quantized](example_workflows/ltxv-13b-i2v-base-fp8.json)
+
+### 13B distilled model<br>
+🧩 [Image to video](example_workflows/13b-distilled/ltxv-13b-dist-i2v-base.json)<br>
+🧩 [Image to video with keyframes](example_workflows/13b-distilled/ltxv-13b-dist-i2v-keyframes.json)<br>
+🧩 [Image to video with duration extension](example_workflows/13b-distilled/ltxv-13b-dist-i2v-extend.json)<br>
+🧩 [Image to video 8b quantized](example_workflows/13b-distilled/ltxv-13b-dist-i2v-base-fp8.json)
 
 ### Inversion
 
