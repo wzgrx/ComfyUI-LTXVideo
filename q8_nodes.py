@@ -14,7 +14,8 @@ from .nodes_registry import comfy_node
 def check_q8_available():
     if not Q8_AVAILABLE:
         raise ImportError(
-            "Q8 kernels are not available. Please install them to use this feature."
+            "Q8 kernels are not available. To use this feature install the q8_kernels package from here:."
+            "https://github.com/Lightricks/LTX-Video-Q8-Kernels"
         )
 
 
@@ -48,7 +49,7 @@ class LTXVQ8Patch:
         else:
             transformer_key = "diffusion_model"
             patcher = patch_comfyui_native_transformer
-        transformer = m.get_model_object(transformer_key).cuda()
-        patcher(transformer, use_fp8_attention)
+        transformer = m.get_model_object(transformer_key)
+        patcher(transformer, use_fp8_attention, True)
         m.add_object_patch(transformer_key, transformer)
         return (m,)
