@@ -4,6 +4,15 @@ ComfyUI-LTXVideo is a collection of custom nodes for ComfyUI, designed to provid
 The model itself is supported in the core ComfyUI [code](https://github.com/comfyanonymous/ComfyUI/tree/master/comfy/ldm/lightricks).
 The main LTXVideo repository can be found [here](https://github.com/Lightricks/LTX-Video).
 
+# ⭐ 9.06.2025 – LTXVideo VAE Patcher, Mask manipulation and Q8 LoRA loader nodes.  ⭐
+1. **LTXV Patcher VAE**<br> The new node improves VAE decoding performance by reducing runtime and cutting memory consumption by up to 50%. This allows generation of higher-resolution outputs on consumer-grade GPUs with limited VRAM, without needing to load the VAE partially or decode in tiles.<br>
+⚠️ On *Windows*, you may need to add the paths to the *MSVC compiler (cl.exe)* and *ninja.exe* to your system environment PATH variable. <br>
+2. **LTXV Preprocess Masks**<br>
+Preprocesses masks for use with the LTXVideo model's latent masking. It validates mask dimensions based on VAE downscaling, supports optional inversion, handles the first frame mask separately, combines temporal masks via max pooling, applies morphological operations to grow or shrink masks, and clamps values to ensure correct opacity. The result is a set of masks ready for latent-space masking.
+3. **LTXV Q8 Lora Model Loader**<br>
+Applying LoRA to an FP8-quantized model requires special handling to preserve output quality. It's crucial to apply LoRA weights using the correct precision, as the current LoRA implementation in ComfyUI does so in a non-optimal way. This node addresses that limitation by ensuring LoRA weights are applied properly, resulting in significantly better quality. If you're working with an FP8 LTXV model, using this node guarantees that LoRA behaves as expected and delivers the intended effect.
+
+
 # ⭐ 14.05.2025 – LTXVideo 13B 0.9.7 Distilled Release ⭐
 
 ### 🚀 What's New in LTXVideo 13B 0.9.7 Distilled

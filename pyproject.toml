@@ -12,14 +12,15 @@ dependencies = [
     "diffusers",
     "huggingface_hub>=0.25.2",
     "transformers[timm]>=4.45.0",
-    "einops"
+    "einops",
+    "ninja~=1.11.1.4"
 ]
 
 [project.optional-dependencies]
 internal = [
-    "ltx-video@git+https://github.com/Lightricks/LTX-Video@ltx-video-0.9.7",
+    "ltx-video@git+https://github.com/Lightricks/LTX-Video@ltx-video-0.9.1",
     "av>=10.0.0",
-    "q8-kernels==0.0.5"
+    "q8-kernels==0.0.6"
 ]
 dev = [
     "pre-commit>=4.0.1",
