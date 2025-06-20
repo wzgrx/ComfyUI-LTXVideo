@@ -12,7 +12,7 @@ from .nodes_registry import (
 )
 from .nodes_registry import NODES_DISPLAY_NAME_PREFIX, camel_case_to_spaces
 from .prompt_enhancer_nodes import LTXVPromptEnhancer, LTXVPromptEnhancerLoader
-from .q8_nodes import LTXVQ8Patch
+from .q8_nodes import LTXVQ8LoraModelLoader, LTXVQ8Patch
 from .recurrent_sampler import LinearOverlapLatentTransition, LTXVRecurrentKSampler
 from .stg import (
     LTXVApplySTG,
@@ -40,6 +40,7 @@ NODE_CLASS_MAPPINGS = {
     "LTXVPromptEnhancer": LTXVPromptEnhancer,
     "LTXVPromptEnhancerLoader": LTXVPromptEnhancerLoader,
     "LTXQ8Patch": LTXVQ8Patch,
+    "LTXVQ8LoraModelLoader": LTXVQ8LoraModelLoader,
     "LTXVRecurrentKSampler": LTXVRecurrentKSampler,
     "LTXVSelectLatents": LTXVSelectLatents,
     "LTXVSetVideoLatentNoiseMasks": LTXVSetVideoLatentNoiseMasks,

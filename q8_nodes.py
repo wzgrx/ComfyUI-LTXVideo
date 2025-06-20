@@ -68,8 +68,8 @@ def idendity_quant_fn(x, t):
     return x.to(dtype=t)
 
 
-@comfy_node(name="LTXV Q8 Lora Model Loader")
-class LoraLoaderQ8ModelOnly:
+@comfy_node(name="LTXVQ8LoraModelLoader")
+class LTXVQ8LoraModelLoader:
     def __init__(self):
         self.loaded_lora = None
 
@@ -87,6 +87,7 @@ class LoraLoaderQ8ModelOnly:
         }
 
     RETURN_TYPES = ("MODEL",)
+    CATEGORY = "lightricks/LTXV"
     FUNCTION = "load_lora_model_only"
 
     def load_lora(self, model, lora_name, strength_model):
