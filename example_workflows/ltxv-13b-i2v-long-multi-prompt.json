@@ -1,60 +1,15 @@
 {
   "id": "394ed254-7306-42a2-9ae6-aa880ce4456d",
   "revision": 0,
-  "last_node_id": 2145,
-  "last_link_id": 5985,
+  "last_node_id": 2146,
+  "last_link_id": 5988,
   "nodes": [
-    {
-      "id": 1335,
-      "type": "VAEDecode",
-      "pos": [
-        4524.71875,
-        2618.7578125
-      ],
-      "size": [
-        210,
-        46
-      ],
-      "flags": {},
-      "order": 48,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "samples",
-          "name": "samples",
-          "type": "LATENT",
-          "link": 5884
-        },
-        {
-          "localized_name": "vae",
-          "name": "vae",
-          "type": "VAE",
-          "link": 5363
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "IMAGE",
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            3578
-          ]
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.3.29",
-        "Node name for S&R": "VAEDecode"
-      },
-      "widgets_values": []
-    },
     {
       "id": 1926,
       "type": "KSamplerSelect",
       "pos": [
-        7169.62451171875,
-        2627.34912109375
+        6939.70361328125,
+        2514.94921875
       ],
       "size": [
         251.94110107421875,
@@ -97,8 +52,8 @@
       "id": 2038,
       "type": "Reroute",
       "pos": [
-        6695.60791015625,
-        2234.832763671875
+        6465.68701171875,
+        2122.432861328125
       ],
       "size": [
         75,
@@ -132,8 +87,8 @@
       "id": 2037,
       "type": "Reroute",
       "pos": [
-        6693.35400390625,
-        2192.606689453125
+        6463.43310546875,
+        2080.206787109375
       ],
       "size": [
         75,
@@ -167,8 +122,8 @@
       "id": 2073,
       "type": "FloatToSigmas",
       "pos": [
-        7252.814453125,
-        2838.02490234375
+        7022.8935546875,
+        2725.625
       ],
       "size": [
         216.59999084472656,
@@ -252,8 +207,8 @@
       "id": 1598,
       "type": "RandomNoise",
       "pos": [
-        7239.3369140625,
-        2308.76806640625
+        7009.416015625,
+        2196.3681640625
       ],
       "size": [
         210,
@@ -305,7 +260,7 @@
         26
       ],
       "flags": {},
-      "order": 49,
+      "order": 48,
       "mode": 0,
       "inputs": [
         {
@@ -332,8 +287,8 @@
       "id": 1973,
       "type": "VHS_VideoCombine",
       "pos": [
-        8381.2939453125,
-        2244.07470703125
+        8151.375,
+        2131.6748046875
       ],
       "size": [
         770.2554931640625,
@@ -466,8 +421,8 @@
       "id": 2116,
       "type": "STGAdvancedPresets",
       "pos": [
-        6526.765625,
-        2525.401123046875
+        6296.8447265625,
+        2413.001220703125
       ],
       "size": [
         292.0787048339844,
@@ -508,8 +463,8 @@
       "id": 2117,
       "type": "Set VAE Decoder Noise",
       "pos": [
-        7948.51708984375,
-        2248.662841796875
+        7718.59619140625,
+        2136.262939453125
       ],
       "size": [
         294.1568298339844,
@@ -613,8 +568,8 @@
       "id": 2072,
       "type": "StringToFloatList",
       "pos": [
-        6769.21875,
-        2838.73681640625
+        6539.2978515625,
+        2726.3369140625
       ],
       "size": [
         395.74224853515625,
@@ -659,8 +614,8 @@
       "id": 1871,
       "type": "STGGuiderAdvanced",
       "pos": [
-        6852.89599609375,
-        2435.40283203125
+        6622.97509765625,
+        2323.0029296875
       ],
       "size": [
         278.79998779296875,
@@ -786,8 +741,8 @@
       "id": 2124,
       "type": "LTXVLoopingSampler",
       "pos": [
-        7551.111328125,
-        2227.607177734375
+        7321.1904296875,
+        2115.207275390625
       ],
       "size": [
         365.21484375,
@@ -1010,90 +965,6 @@
       ]
     },
     {
-      "id": 2127,
-      "type": "LTXVTiledVAEDecode",
-      "pos": [
-        7952.56640625,
-        2443.8046875
-      ],
-      "size": [
-        290.6636657714844,
-        150
-      ],
-      "flags": {},
-      "order": 56,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "vae",
-          "name": "vae",
-          "type": "VAE",
-          "link": 5917
-        },
-        {
-          "localized_name": "latents",
-          "name": "latents",
-          "type": "LATENT",
-          "link": 5918
-        },
-        {
-          "localized_name": "horizontal_tiles",
-          "name": "horizontal_tiles",
-          "type": "INT",
-          "widget": {
-            "name": "horizontal_tiles"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "vertical_tiles",
-          "name": "vertical_tiles",
-          "type": "INT",
-          "widget": {
-            "name": "vertical_tiles"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "overlap",
-          "name": "overlap",
-          "type": "INT",
-          "widget": {
-            "name": "overlap"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "last_frame_fix",
-          "name": "last_frame_fix",
-          "type": "BOOLEAN",
-          "widget": {
-            "name": "last_frame_fix"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "image",
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            5920
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LTXVTiledVAEDecode"
-      },
-      "widgets_values": [
-        2,
-        2,
-        5,
-        false
-      ]
-    },
-    {
       "id": 2090,
       "type": "Reroute",
       "pos": [
@@ -1238,8 +1109,8 @@
       "id": 2122,
       "type": "LoraLoaderModelOnly",
       "pos": [
-        6476.05859375,
-        2317.96484375
+        6246.1376953125,
+        2205.56494140625
       ],
       "size": [
         270,
@@ -1323,42 +1194,6 @@
           "links": [
             5820,
             5821
-          ]
-        }
-      ],
-      "properties": {
-        "showOutputText": false,
-        "horizontal": false
-      }
-    },
-    {
-      "id": 2125,
-      "type": "Reroute",
-      "pos": [
-        7255.9951171875,
-        2484.927001953125
-      ],
-      "size": [
-        75,
-        26
-      ],
-      "flags": {},
-      "order": 54,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "",
-          "type": "*",
-          "link": 5971
-        }
-      ],
-      "outputs": [
-        {
-          "name": "",
-          "type": "LATENT",
-          "links": [
-            5912,
-            5961
           ]
         }
       ],
@@ -1605,41 +1440,6 @@
       "bgcolor": "#653"
     },
     {
-      "id": 2095,
-      "type": "Reroute",
-      "pos": [
-        3925.002197265625,
-        2883.0654296875
-      ],
-      "size": [
-        75,
-        26
-      ],
-      "flags": {},
-      "order": 31,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "",
-          "type": "*",
-          "link": 5826
-        }
-      ],
-      "outputs": [
-        {
-          "name": "",
-          "type": "VAE",
-          "links": [
-            5828
-          ]
-        }
-      ],
-      "properties": {
-        "showOutputText": false,
-        "horizontal": false
-      }
-    },
-    {
       "id": 73,
       "type": "KSamplerSelect",
       "pos": [
@@ -1784,75 +1584,6 @@
       "bgcolor": "#533"
     },
     {
-      "id": 1870,
-      "type": "Set VAE Decoder Noise",
-      "pos": [
-        4506.759765625,
-        2418.0849609375
-      ],
-      "size": [
-        235.1999969482422,
-        130
-      ],
-      "flags": {},
-      "order": 39,
-      "mode": 0,
-      "inputs": [
-        {
-          "localized_name": "vae",
-          "name": "vae",
-          "type": "VAE",
-          "link": 5828
-        },
-        {
-          "localized_name": "timestep",
-          "name": "timestep",
-          "type": "FLOAT",
-          "widget": {
-            "name": "timestep"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "scale",
-          "name": "scale",
-          "type": "FLOAT",
-          "widget": {
-            "name": "scale"
-          },
-          "link": null
-        },
-        {
-          "localized_name": "seed",
-          "name": "seed",
-          "type": "INT",
-          "widget": {
-            "name": "seed"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "localized_name": "VAE",
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            5363
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "Set VAE Decoder Noise"
-      },
-      "widgets_values": [
-        0.05000000000000001,
-        0.025000000000000005,
-        42,
-        "fixed"
-      ]
-    },
-    {
       "id": 1336,
       "type": "VHS_VideoCombine",
       "pos": [
@@ -1864,14 +1595,14 @@
         621.5070190429688
       ],
       "flags": {},
-      "order": 51,
+      "order": 52,
       "mode": 0,
       "inputs": [
         {
           "localized_name": "images",
           "name": "images",
           "type": "IMAGE",
-          "link": 3578
+          "link": 5987
         },
         {
           "localized_name": "audio",
@@ -2883,7 +2614,7 @@
         26
       ],
       "flags": {},
-      "order": 52,
+      "order": 51,
       "mode": 0,
       "inputs": [
         {
@@ -3067,6 +2798,54 @@
       ]
     },
     {
+      "id": 2136,
+      "type": "MultiPromptProvider",
+      "pos": [
+        2547.635009765625,
+        2312.775390625
+      ],
+      "size": [
+        314.39056396484375,
+        151.14501953125
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5964
+        },
+        {
+          "localized_name": "prompts",
+          "name": "prompts",
+          "type": "STRING",
+          "widget": {
+            "name": "prompts"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "conditionings",
+          "name": "conditionings",
+          "type": "CONDITIONING",
+          "links": [
+            5968
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MultiPromptProvider"
+      },
+      "widgets_values": [
+        "a chimpanzee walks in the jungle |\na chimpanzee stops and eats a snack |\na chimpanzee lays on the ground"
+      ]
+    },
+    {
       "id": 1960,
       "type": "LoadImage",
       "pos": [
@@ -3122,7 +2901,7 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "chimpanzee.webp",
+        "R8_FLUX_XLABS_00001_ copy.webp",
         "image"
       ]
     },
@@ -3331,8 +3110,8 @@
           "name": "denoised_output",
           "type": "LATENT",
           "links": [
-            5884,
-            5885
+            5885,
+            5986
           ]
         }
       ],
@@ -3355,52 +3134,312 @@
       ]
     },
     {
-      "id": 2136,
-      "type": "MultiPromptProvider",
+      "id": 2095,
+      "type": "Reroute",
       "pos": [
-        2547.635009765625,
-        2312.775390625
+        3925.002197265625,
+        2883.0654296875
       ],
       "size": [
-        314.39056396484375,
-        151.14501953125
+        75,
+        26
       ],
       "flags": {},
-      "order": 19,
+      "order": 31,
       "mode": 0,
       "inputs": [
         {
-          "localized_name": "clip",
-          "name": "clip",
-          "type": "CLIP",
-          "link": 5964
+          "name": "",
+          "type": "*",
+          "link": 5826
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "VAE",
+          "links": [
+            5828
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 1870,
+      "type": "Set VAE Decoder Noise",
+      "pos": [
+        4506.759765625,
+        2418.0849609375
+      ],
+      "size": [
+        235.1999969482422,
+        130
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 5828
         },
         {
-          "localized_name": "prompts",
-          "name": "prompts",
-          "type": "STRING",
+          "localized_name": "timestep",
+          "name": "timestep",
+          "type": "FLOAT",
           "widget": {
-            "name": "prompts"
+            "name": "timestep"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "scale",
+          "name": "scale",
+          "type": "FLOAT",
+          "widget": {
+            "name": "scale"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
           },
           "link": null
         }
       ],
       "outputs": [
         {
-          "localized_name": "conditionings",
-          "name": "conditionings",
-          "type": "CONDITIONING",
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
           "links": [
-            5968
+            5988
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "MultiPromptProvider"
+        "Node name for S&R": "Set VAE Decoder Noise"
       },
       "widgets_values": [
-        "a chimpanzee walks in the jungle |\na chimpanzee stops and eats a snack |\na chimpanzee lays on the ground"
+        0.05000000000000001,
+        0.025000000000000005,
+        42,
+        "fixed"
       ]
+    },
+    {
+      "id": 2146,
+      "type": "LTXVTiledVAEDecode",
+      "pos": [
+        4485.91064453125,
+        2618.149169921875
+      ],
+      "size": [
+        296.4878845214844,
+        150
+      ],
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 5988
+        },
+        {
+          "localized_name": "latents",
+          "name": "latents",
+          "type": "LATENT",
+          "link": 5986
+        },
+        {
+          "localized_name": "horizontal_tiles",
+          "name": "horizontal_tiles",
+          "type": "INT",
+          "widget": {
+            "name": "horizontal_tiles"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "vertical_tiles",
+          "name": "vertical_tiles",
+          "type": "INT",
+          "widget": {
+            "name": "vertical_tiles"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "overlap",
+          "name": "overlap",
+          "type": "INT",
+          "widget": {
+            "name": "overlap"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "last_frame_fix",
+          "name": "last_frame_fix",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "last_frame_fix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            5987
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LTXVTiledVAEDecode"
+      },
+      "widgets_values": [
+        4,
+        4,
+        3,
+        true
+      ]
+    },
+    {
+      "id": 2127,
+      "type": "LTXVTiledVAEDecode",
+      "pos": [
+        7722.6455078125,
+        2331.40478515625
+      ],
+      "size": [
+        290.6636657714844,
+        150
+      ],
+      "flags": {},
+      "order": 56,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 5917
+        },
+        {
+          "localized_name": "latents",
+          "name": "latents",
+          "type": "LATENT",
+          "link": 5918
+        },
+        {
+          "localized_name": "horizontal_tiles",
+          "name": "horizontal_tiles",
+          "type": "INT",
+          "widget": {
+            "name": "horizontal_tiles"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "vertical_tiles",
+          "name": "vertical_tiles",
+          "type": "INT",
+          "widget": {
+            "name": "vertical_tiles"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "overlap",
+          "name": "overlap",
+          "type": "INT",
+          "widget": {
+            "name": "overlap"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "last_frame_fix",
+          "name": "last_frame_fix",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "last_frame_fix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            5920
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LTXVTiledVAEDecode"
+      },
+      "widgets_values": [
+        6,
+        6,
+        5,
+        true
+      ]
+    },
+    {
+      "id": 2125,
+      "type": "Reroute",
+      "pos": [
+        7038.837890625,
+        2369.897705078125
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 5971
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "LATENT",
+          "links": [
+            5912,
+            5961
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
     }
   ],
   "links": [
@@ -3413,28 +3452,12 @@
       "CONDITIONING"
     ],
     [
-      3578,
-      1335,
-      0,
-      1336,
-      0,
-      "IMAGE"
-    ],
-    [
       5303,
       1828,
       0,
       1691,
       1,
       "UPSCALE_MODEL"
-    ],
-    [
-      5363,
-      1870,
-      0,
-      1335,
-      1,
-      "VAE"
     ],
     [
       5567,
@@ -3691,14 +3714,6 @@
       2118,
       4,
       "SIGMAS"
-    ],
-    [
-      5884,
-      2118,
-      0,
-      1335,
-      0,
-      "LATENT"
     ],
     [
       5885,
@@ -3987,6 +4002,30 @@
       2118,
       7,
       "IMAGE"
+    ],
+    [
+      5986,
+      2118,
+      0,
+      2146,
+      1,
+      "LATENT"
+    ],
+    [
+      5987,
+      2146,
+      0,
+      1336,
+      0,
+      "IMAGE"
+    ],
+    [
+      5988,
+      1870,
+      0,
+      2146,
+      0,
+      "VAE"
     ]
   ],
   "groups": [
@@ -4011,8 +4050,8 @@
       "id": 42,
       "title": "Add Details",
       "bounding": [
-        6335.14013671875,
-        2116.384521484375,
+        6105.21923828125,
+        2003.9852294921875,
         2866.58203125,
         1085.7049560546875
       ],
@@ -4031,8 +4070,12 @@
         2072,
         1871,
         2124,
-        2127,
         2122,
+        1691,
+        2089,
+        2092,
+        2093,
+        2127,
         2125
       ]
     },
@@ -4066,7 +4109,6 @@
       "font_size": 24,
       "flags": {},
       "nodes": [
-        1335,
         1952,
         2101,
         2129,
@@ -4075,11 +4117,9 @@
         1949,
         1953,
         2097,
-        2095,
         73,
         2131,
         1896,
-        1870,
         1336,
         1507,
         7,
@@ -4093,18 +4133,21 @@
         2102,
         1967,
         2140,
+        2136,
         2118,
-        2136
+        2095,
+        1870,
+        2146
       ]
     }
   ],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.8954302432552395,
+      "scale": 1.08347059433884,
       "offset": [
-        -2265.7314583089683,
-        -2087.6123877936175
+        -4185.740928507225,
+        -2398.5026737354337
       ]
     },
     "frontendVersion": "1.17.11",
@@ -4163,22 +4206,6 @@
           "title": "LTXVConditioning"
         }
       },
-      "1335": {
-        "inputs": {
-          "samples": [
-            "2118",
-            0
-          ],
-          "vae": [
-            "1870",
-            0
-          ]
-        },
-        "class_type": "VAEDecode",
-        "_meta": {
-          "title": "VAE Decode"
-        }
-      },
       "1336": {
         "inputs": {
           "frame_rate": 24,
@@ -4192,7 +4219,7 @@
           "pingpong": false,
           "save_output": false,
           "images": [
-            "1335",
+            "2146",
             0
           ]
         },
@@ -4380,7 +4407,7 @@
       },
       "1960": {
         "inputs": {
-          "image": "chimpanzee.webp"
+          "image": "R8_FLUX_XLABS_00001_ copy.webp"
         },
         "class_type": "LoadImage",
         "_meta": {
@@ -4609,10 +4636,10 @@
       },
       "2127": {
         "inputs": {
-          "horizontal_tiles": 2,
-          "vertical_tiles": 2,
+          "horizontal_tiles": 6,
+          "vertical_tiles": 6,
           "overlap": 5,
-          "last_frame_fix": false,
+          "last_frame_fix": true,
           "vae": [
             "2117",
             0
@@ -4711,6 +4738,26 @@
         "class_type": "VAEEncode",
         "_meta": {
           "title": "VAE Encode"
+        }
+      },
+      "2146": {
+        "inputs": {
+          "horizontal_tiles": 4,
+          "vertical_tiles": 4,
+          "overlap": 3,
+          "last_frame_fix": true,
+          "vae": [
+            "1870",
+            0
+          ],
+          "latents": [
+            "2118",
+            0
+          ]
+        },
+        "class_type": "LTXVTiledVAEDecode",
+        "_meta": {
+          "title": "🅛🅣🅧 LTXV Tiled VAE Decode"
         }
       }
     },
